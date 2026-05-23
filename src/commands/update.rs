@@ -12,16 +12,15 @@ pub fn run(args: &Args, current_version: &str) -> Result<()> {
     let target = self_update::get_target().to_string();
 
     if args.check {
-        let latest = self_update::backends::github::ReleaseList::configure()
+        let releases = self_update::backends::github::ReleaseList::configure()
             .repo_owner("Appleuiy")
             .repo_name("gitpilot")
-            .with_target(&target)
             .build()?
             .fetch()?;
 
-        if let Some(release) = latest.into_iter().next() {
+        println!("current: v{current_version}");
+        if let Some(release) = releases.into_iter().next() {
             let latest_ver = release.version.trim_start_matches('v');
-            println!("current: v{current_version}");
             println!("latest:  v{latest_ver}");
             if latest_ver != current_version {
                 println!("update available!");
@@ -29,7 +28,7 @@ pub fn run(args: &Args, current_version: &str) -> Result<()> {
                 println!("already up to date.");
             }
         } else {
-            println!("unable to check for updates.");
+            println!("no releases found.");
         }
         return Ok(());
     }
