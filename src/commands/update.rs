@@ -13,7 +13,7 @@ pub fn run(args: &Args, current_version: &str) -> Result<()> {
 
     if args.check {
         let latest = self_update::backends::github::ReleaseList::configure()
-            .repo_owner("YOUR_GITHUB_USERNAME")
+            .repo_owner("Appleuiy")
             .repo_name("gitpilot")
             .with_target(&target)
             .build()?
@@ -36,7 +36,7 @@ pub fn run(args: &Args, current_version: &str) -> Result<()> {
 
     println!("updating gitpilot from v{current_version}...");
     let status = self_update::backends::github::Update::configure()
-        .repo_owner("YOUR_GITHUB_USERNAME")
+        .repo_owner("Appleuiy")
         .repo_name("gitpilot")
         .target(&target)
         .bin_name("gitpilot")
